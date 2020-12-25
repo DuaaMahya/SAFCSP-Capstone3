@@ -3,13 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		016B32267185FAE5927507E7 /* Pods_Tourme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 489BD9A23260979112ABDACF /* Pods_Tourme.framework */; };
 		032E0BC8F379943063CCA060 /* Pods_Tourme_TourmeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B0119BECD62D8C0F741048D /* Pods_Tourme_TourmeUITests.framework */; };
+		4001889A2594B963005898B3 /* CategoryBusinessCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400188992594B963005898B3 /* CategoryBusinessCollectionViewController.swift */; };
 		400A2B522591598A00BF98DC /* MainPageCategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A2B512591598A00BF98DC /* MainPageCategoriesCollectionViewCell.swift */; };
+		401425752594F93800A8F842 /* BusinessesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401425742594F93800A8F842 /* BusinessesTableViewController.swift */; };
 		4040897B2593B33F00A44BA8 /* BusinessDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4040897A2593B33F00A44BA8 /* BusinessDetailViewController.swift */; };
 		409950E4259124140051B502 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409950E3259124140051B502 /* AppDelegate.swift */; };
 		409950E6259124140051B502 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409950E5259124140051B502 /* SceneDelegate.swift */; };
@@ -44,7 +46,9 @@
 
 /* Begin PBXFileReference section */
 		0E6116367B1F3C2B48E4E5A8 /* Pods-TourmeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourmeTests.release.xcconfig"; path = "Target Support Files/Pods-TourmeTests/Pods-TourmeTests.release.xcconfig"; sourceTree = "<group>"; };
+		400188992594B963005898B3 /* CategoryBusinessCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBusinessCollectionViewController.swift; sourceTree = "<group>"; };
 		400A2B512591598A00BF98DC /* MainPageCategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageCategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		401425742594F93800A8F842 /* BusinessesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessesTableViewController.swift; sourceTree = "<group>"; };
 		4040897A2593B33F00A44BA8 /* BusinessDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDetailViewController.swift; sourceTree = "<group>"; };
 		409950E0259124140051B502 /* Tourme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tourme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		409950E3259124140051B502 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +184,8 @@
 			children = (
 				409950E7259124140051B502 /* ViewController.swift */,
 				4040897A2593B33F00A44BA8 /* BusinessDetailViewController.swift */,
+				400188992594B963005898B3 /* CategoryBusinessCollectionViewController.swift */,
+				401425742594F93800A8F842 /* BusinessesTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -194,7 +200,6 @@
 				AF80170B2E3F1F894170A580 /* Pods-TourmeTests.debug.xcconfig */,
 				0E6116367B1F3C2B48E4E5A8 /* Pods-TourmeTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -451,8 +456,10 @@
 				4099513F259140DE0051B502 /* mainTableViewCell.swift in Sources */,
 				4099513125913FB60051B502 /* Utilities.swift in Sources */,
 				400A2B522591598A00BF98DC /* MainPageCategoriesCollectionViewCell.swift in Sources */,
+				401425752594F93800A8F842 /* BusinessesTableViewController.swift in Sources */,
 				40D9CD852593E8CC00749051 /* BusinessDetailGalleryCell.swift in Sources */,
 				4040897B2593B33F00A44BA8 /* BusinessDetailViewController.swift in Sources */,
+				4001889A2594B963005898B3 /* CategoryBusinessCollectionViewController.swift in Sources */,
 				409950E6259124140051B502 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

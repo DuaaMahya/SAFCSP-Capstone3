@@ -276,6 +276,8 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .white
 
         view.addSubview(businessImage)
         businessImage.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, height: 250)
@@ -288,6 +290,9 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
         
         
     }
+    
+    
+    //MARK: - Functions
     
     func setupOverviewContent() {
         overviewContentStackView.isHidden = false

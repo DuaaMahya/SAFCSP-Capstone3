@@ -39,13 +39,6 @@ class Utilities {
         view.addSubview(blurEffectView)
     }
     
-    func addTopAndBottomBorders(centerView: UIView) {
-        let thickness: CGFloat = 2.0
-        let bottomBorder = CALayer()
-        bottomBorder.frame = CGRect(x:0, y: centerView.frame.size.height - thickness, width: centerView.frame.size.width, height:thickness)
-        bottomBorder.backgroundColor = UIColor.red.cgColor
-        centerView.layer.addSublayer(bottomBorder)
-    }
 }
 
 extension UIView {

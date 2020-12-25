@@ -10,7 +10,7 @@ import UIKit
 class MainPageCategoriesCollectionViewCell: UICollectionViewCell {
     
     let categoryImage: UIImageView = {
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 63, height: 63))
+        let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.image = #imageLiteral(resourceName: "ResturantIcon")
         image.clipsToBounds = true
@@ -30,7 +30,7 @@ class MainPageCategoriesCollectionViewCell: UICollectionViewCell {
         stack.alignment = .center
         stack.distribution = .fill
         stack.layer.cornerRadius = 9.0
-        stack.spacing = 5
+        stack.spacing = 3
         
         stack.addArrangedSubview(categoryImage)
         stack.addArrangedSubview(categoryNameLabel)
