@@ -22,7 +22,8 @@ class ViewController: UIViewController {
     let images: [UIImage] = [#imageLiteral(resourceName: "ResturantIcon"), #imageLiteral(resourceName: "RealEstateIcon"), #imageLiteral(resourceName: "HomeServiceIcon"), #imageLiteral(resourceName: "EducationIcon"), #imageLiteral(resourceName: "PetsIcon"), #imageLiteral(resourceName: "ArtIcon"), #imageLiteral(resourceName: "EventPlaningIcon"), #imageLiteral(resourceName: "more+")]
     let categories = ["Restaurants", "Real Estate", "Home Service", "Education", "Pets", "Art","Event Planning"," "]
     
-    let locationManger = CLlocationManger()
+    var weatherManger = WeatherManger()
+    let locationManger = CLLocationManager()
  
     lazy var header: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.width + 40))
@@ -141,30 +142,36 @@ class ViewController: UIViewController {
     
     var dayLabel: UILabel = {
         var label = UILabel()
-        label.text = "Today"
+        var date = Date()
+        label.text = "\(date.dayOfWeek()!)"
         label.font = UIFont.boldSystemFont(ofSize: 14)
         return label
     }()
     
     var dateLabel: UILabel = {
         var label = UILabel()
-        label.text = "3/12/2020"
+        var date = Date()
+        label.text = "\(date.dateFormtted()!)"
         label.font = UIFont.systemFont(ofSize: 10)
         return label
     }()
+    
+    
     
     //MARK: - Override
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        utility.blur(view: view)
+        weatherManger.delegate = self
+        
         
         utility.gradentColors(color1: Colors.lightGreen.cgColor, color2: Colors.green.cgColor, view: containerView, cornerRadius: 9)
         
         setupSearchBar()
         setupTableView()
         setupCollectionView()
+        setupLocationManger()
     }
     
     
@@ -226,6 +233,12 @@ class ViewController: UIViewController {
                               right: header.rightAnchor, paddingTop: 8)
     }
     
+    func setupLocationManger() {
+        locationManger.delegate = self
+        locationManger.requestWhenInUseAuthorization()
+        locationManger.requestLocation()
+    }
+    
     //MARK: - @objc Selectors
     
     @objc func weatherViewTapped(_ sender: UIButton) {
@@ -234,6 +247,34 @@ class ViewController: UIViewController {
     
 
 
+}
+
+extension ViewController: WeatherDelegate {
+    
+    func didUpdateWeather(_ weatherManger: WeatherManger, weather: WeatherModel) {
+        DispatchQueue.main.async {
+            self.tempertureLabel.text = "\(weather.temperatureString)°C"
+            self.cityLabel.text = weather.cityName
+        }
+    }
+    
+}
+
+extension ViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            let lat = location.coordinate.latitude
+            let long = location.coordinate.longitude
+            
+            weatherManger.fetchWeather(lat: lat, long: long) { (result) in
+                print(result)
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
 }
 
 extension ViewController: UISearchBarDelegate {
