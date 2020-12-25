@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 private let tableCell = "businessesCell"
 private let collectionCell = "categoriesCell"
@@ -15,10 +16,14 @@ class ViewController: UIViewController {
     var searchBar = UISearchBar()
     var tableView = UITableView()
     var collectionView: UICollectionView?
+    
     let utility = Utilities()
+    
     let images: [UIImage] = [#imageLiteral(resourceName: "ResturantIcon"), #imageLiteral(resourceName: "RealEstateIcon"), #imageLiteral(resourceName: "HomeServiceIcon"), #imageLiteral(resourceName: "EducationIcon"), #imageLiteral(resourceName: "PetsIcon"), #imageLiteral(resourceName: "ArtIcon"), #imageLiteral(resourceName: "EventPlaningIcon"), #imageLiteral(resourceName: "more+")]
     let categories = ["Restaurants", "Real Estate", "Home Service", "Education", "Pets", "Art","Event Planning"," "]
     
+    let locationManger = CLlocationManger()
+ 
     lazy var header: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.width + 40))
         
@@ -50,7 +55,7 @@ class ViewController: UIViewController {
     
     lazy var containerButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 40, height: 227))
-        button.addTarget(self, action: #selector(weatherViewTapped), for: .allEvents)
+        button.addTarget(self, action: #selector(weatherViewTapped), for: .touchUpInside)
         return button
     }()
     
@@ -162,6 +167,8 @@ class ViewController: UIViewController {
         setupCollectionView()
     }
     
+    
+    
     //MARK: - Functions
     
     func setupSearchBar() {
@@ -250,9 +257,6 @@ extension ViewController: UISearchBarDelegate {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat { 40 }
     
@@ -281,6 +285,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let dVC = storyboard.instantiateViewController(identifier: "BusinessDetailVC") as! BusinessDetailViewController
+       
+        
+        
+        self.navigationController?.pushViewController(dVC, animated: true)
+    }
+    
+    
+    
     
 }
 
@@ -297,6 +313,16 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.categoryImage.image = itemImage
         cell.categoryNameLabel.text = itemLabel
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let dVC = storyboard.instantiateViewController(identifier: "CategoriesBusinessVC") as! CategoryBusinessCollectionViewController
+       
+        
+        
+        self.navigationController?.pushViewController(dVC, animated: true)
     }
     
 }
