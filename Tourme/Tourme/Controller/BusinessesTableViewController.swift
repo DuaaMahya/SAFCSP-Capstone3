@@ -16,7 +16,7 @@ class BusinessesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(mainTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
-        
+        tableView.separatorColor = .clear
     }
 
     // MARK: - Table view data source

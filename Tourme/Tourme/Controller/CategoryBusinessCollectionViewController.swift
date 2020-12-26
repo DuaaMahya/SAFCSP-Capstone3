@@ -13,8 +13,8 @@ class CategoryBusinessCollectionViewController: UIViewController {
     
     var collectionView: UICollectionView?
     
-    let images: [UIImage] = [#imageLiteral(resourceName: "ResturantIcon"), #imageLiteral(resourceName: "RealEstateIcon"), #imageLiteral(resourceName: "HomeServiceIcon"), #imageLiteral(resourceName: "EducationIcon"), #imageLiteral(resourceName: "PetsIcon"), #imageLiteral(resourceName: "ArtIcon"), #imageLiteral(resourceName: "EventPlaningIcon")]
-    let categories = ["Restaurants", "Real Estate", "Home Service", "Education", "Pets", "Art","Event Planning"]
+    let images: [UIImage] = [#imageLiteral(resourceName: "ResturantIcon"), #imageLiteral(resourceName: "RealEstateIcon"), #imageLiteral(resourceName: "HomeServiceIcon"), #imageLiteral(resourceName: "EducationIcon"), #imageLiteral(resourceName: "PetsIcon"), #imageLiteral(resourceName: "ArtIcon"), #imageLiteral(resourceName: "EventPlaningIcon"), #imageLiteral(resourceName: "ReligiousOrgnizationIcon"), #imageLiteral(resourceName: "LocalFlavorIcon"), #imageLiteral(resourceName: "MassMediaIcon"), #imageLiteral(resourceName: "Hotels&TravelIcon"), #imageLiteral(resourceName: "Health&MedicalIcon")]
+    let categories = ["Restaurants", "Real Estate", "Home Service", "Education", "Pets", "Art","Event Planning", "Religious Orgnization", "Local Flavor", "Mass Media", "Hotels & Travel" ,"Health & Medical"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +74,7 @@ extension CategoryBusinessCollectionViewController: UICollectionViewDelegate, UI
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let dVC = storyboard.instantiateViewController(identifier: "CategoryBusinessVC") as! BusinessesTableViewController
        
-        
+        dVC.title = categories[indexPath.row]
         
         self.navigationController?.pushViewController(dVC, animated: true)
     }
