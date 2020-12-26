@@ -242,17 +242,10 @@ extension ViewController: UISearchBarDelegate {
         searchBar.endEditing(true)
     }
     
-    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+    
         searchBar.endEditing(true)
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //print("search = \(searchText)")
-    }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
