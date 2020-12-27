@@ -154,6 +154,7 @@ class mainTableViewCell: UITableViewCell {
                             paddingRight: 30,
                             width: 30, height: 30)
         
+        
     }
 
     func businessStar(numberOfStars: Int) {
@@ -178,6 +179,41 @@ class mainTableViewCell: UITableViewCell {
 //                starsStackView.addArrangedSubview(image)
 //            }
 //        }
+    }
+    
+    func updateImage(imageURL: String) {
+        
+        guard let photoURL = URL(string: imageURL) else {
+            self.businessImage.image = UIImage(named: "gray")
+            return
+        }
+        
+        // clear photo first
+        self.businessImage.image = nil
+        
+        fetchImageData(from: photoURL)
+    }
+    
+    private func fetchImageData(from url: URL) {
+        URLSession.shared.dataTask(with: url) { (data, responce, error) in
+            
+            if let error = error {
+                print("Data task error. \(error)")
+                return
+            }
+            
+            guard let data = data else {
+                print("Empty Data")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                if let image = UIImage(data: data) {
+                    self.businessImage.image = image
+                }
+            }
+            
+        }.resume()
     }
     
 }

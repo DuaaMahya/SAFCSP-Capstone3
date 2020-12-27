@@ -11,7 +11,7 @@ protocol WeatherDelegate {
     func didUpdateWeather(_ weatherManger: WeatherManger, weather: WeatherModel)
 }
 
-struct EndPoint {
+struct WeatherEndPoint {
     
     static let weatherBaseURL: String = "https://api.weatherapi.com/v1/current.json?key="
     
@@ -37,11 +37,11 @@ struct WeatherManger {
         var urlString = String()
         
         if lat != nil, long != nil {
-            urlString = EndPoint.fillLatAndLongURL(lat: lat!, long: long!)
+            urlString = WeatherEndPoint.fillLatAndLongURL(lat: lat!, long: long!)
         }
         
         if city != nil {
-            urlString = EndPoint.fillCityURL(city: city!)
+            urlString = WeatherEndPoint.fillCityURL(city: city!)
         }
         
         if let url = URL(string: urlString) {
@@ -66,7 +66,7 @@ struct WeatherManger {
                     print("Empty Response")
                     return
                 }
-                print("Response status code: \(response.statusCode)")
+                print("Weather Response status code: \(response.statusCode)")
                 
                 self.handler(data: data, response: response, error: error) { (result) in
                     completion(result)

@@ -13,6 +13,10 @@ private let collectionCell = "categoriesCell"
 
 class ViewController: UIViewController {
     
+    
+    
+    var businesses = [Business]()
+    
     var searchBar = UISearchBar()
     var tableView = UITableView()
     var collectionView: UICollectionView?
@@ -23,6 +27,8 @@ class ViewController: UIViewController {
     let categories = ["Restaurants", "Real Estate", "Home Service", "Education", "Pets", "Art","Event Planning"," "]
     
     var weatherManger = WeatherManger()
+    var yelpManger = YelpManger()
+    
     let locationManger = CLLocationManager()
  
     lazy var header: UIView = {
@@ -164,7 +170,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         weatherManger.delegate = self
-        
+        yelpManger.delegate = self
         
         utility.gradentColors(color1: Colors.lightGreen.cgColor, color2: Colors.green.cgColor, view: containerView, cornerRadius: 9)
         
@@ -258,6 +264,18 @@ extension ViewController: WeatherDelegate {
     
 }
 
+extension ViewController: YelpDelegate {
+    
+    func didUpdateBusiness(_ yelpManger: YelpManger, business: [Business]) {
+        self.businesses = business
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    
+}
+
 extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
@@ -266,6 +284,13 @@ extension ViewController: CLLocationManagerDelegate {
             
             weatherManger.fetchWeather(lat: lat, long: long) { (result) in
                 print(result)
+            }
+            
+            yelpManger.fetchYelp(lat: lat, long: long) { (result) in
+                DispatchQueue.main.async {
+                    print(result)
+                    self.tableView.reloadData()
+                }
             }
         }
     }
@@ -314,12 +339,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        13
+        return businesses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableCell, for: indexPath) as! mainTableViewCell
-        cell.textLabel?.text = "test"
+        let item = businesses[indexPath.row]
+        cell.businessNameLabel.text = item.name
+        cell.updateImage(imageURL: item.image_url)
+        cell.businessCategoryLabel.text = "\(item.coordinates.latitude)"
         return cell
     }
     
@@ -327,8 +355,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let dVC = storyboard.instantiateViewController(identifier: "BusinessDetailVC") as! BusinessDetailViewController
-       
-        
+        let item = businesses[indexPath.row]
+        dVC.businessImage
         
         self.navigationController?.pushViewController(dVC, animated: true)
     }
