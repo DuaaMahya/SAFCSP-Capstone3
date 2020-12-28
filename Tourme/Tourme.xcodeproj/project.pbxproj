@@ -31,6 +31,7 @@
 		40E0C9192596C44C002C5A30 /* WeatherManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E0C9162596C44B002C5A30 /* WeatherManger.swift */; };
 		40E0C9392596D42C002C5A30 /* YelpManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E0C9382596D42C002C5A30 /* YelpManger.swift */; };
 		40E0C9422596D461002C5A30 /* YelpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E0C9412596D461002C5A30 /* YelpData.swift */; };
+		40E204BD25994674003C1466 /* LocationManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E204BC25994674003C1466 /* LocationManger.swift */; };
 		ED527FDE79FD1147AEE74EC4 /* Pods_TourmeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587C1D87350F5BFC73591714 /* Pods_TourmeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		40E0C9162596C44B002C5A30 /* WeatherManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManger.swift; sourceTree = "<group>"; };
 		40E0C9382596D42C002C5A30 /* YelpManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpManger.swift; sourceTree = "<group>"; };
 		40E0C9412596D461002C5A30 /* YelpData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpData.swift; sourceTree = "<group>"; };
+		40E204BC25994674003C1466 /* LocationManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManger.swift; sourceTree = "<group>"; };
 		489BD9A23260979112ABDACF /* Pods_Tourme.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tourme.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B0119BECD62D8C0F741048D /* Pods_Tourme_TourmeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tourme_TourmeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D3C40770ED0612EE96ADB41 /* Pods-Tourme-TourmeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tourme-TourmeUITests.release.xcconfig"; path = "Target Support Files/Pods-Tourme-TourmeUITests/Pods-Tourme-TourmeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -153,7 +155,7 @@
 				409950EC2591241E0051B502 /* Assets.xcassets */,
 				409950EE2591241E0051B502 /* LaunchScreen.storyboard */,
 				409950F12591241E0051B502 /* Info.plist */,
-				4099511A25913EE90051B502 /* Utilities.swift */,
+				40E204BB25994616003C1466 /* Helpers */,
 			);
 			path = Tourme;
 			sourceTree = "<group>";
@@ -233,6 +235,15 @@
 				40E0C9162596C44B002C5A30 /* WeatherManger.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		40E204BB25994616003C1466 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4099511A25913EE90051B502 /* Utilities.swift */,
+				40E204BC25994674003C1466 /* LocationManger.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		5705D402E3322CD37135D0BD /* Pods */ = {
@@ -506,6 +517,7 @@
 				400A2B522591598A00BF98DC /* MainPageCategoriesCollectionViewCell.swift in Sources */,
 				401425752594F93800A8F842 /* BusinessesTableViewController.swift in Sources */,
 				40D9CD852593E8CC00749051 /* BusinessDetailGalleryCell.swift in Sources */,
+				40E204BD25994674003C1466 /* LocationManger.swift in Sources */,
 				405923772597EA49009DDC12 /* Model.swift in Sources */,
 				40E0C9192596C44C002C5A30 /* WeatherManger.swift in Sources */,
 				4040897B2593B33F00A44BA8 /* BusinessDetailViewController.swift in Sources */,

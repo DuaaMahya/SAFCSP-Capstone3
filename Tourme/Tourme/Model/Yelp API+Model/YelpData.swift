@@ -26,13 +26,13 @@ struct Business: Codable {
 }
 
 struct Coordinate: Codable {
-    let latitude: Double
-    let longitude: Double
+    let latitude: Double?
+    let longitude: Double?
 }
 
 struct Location: Codable {
     let city: String
-    let address1: String
+    let address1: String?
     let state: String
     let zip_code: String
 }

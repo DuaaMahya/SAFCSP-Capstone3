@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     let utility = Utilities()
     
     let images: [UIImage] = [#imageLiteral(resourceName: "ResturantIcon"), #imageLiteral(resourceName: "RealEstateIcon"), #imageLiteral(resourceName: "HomeServiceIcon"), #imageLiteral(resourceName: "EducationIcon"), #imageLiteral(resourceName: "PetsIcon"), #imageLiteral(resourceName: "ArtIcon"), #imageLiteral(resourceName: "EventPlaningIcon"), #imageLiteral(resourceName: "more+")]
-    let categories = ["Restaurants", "Real Estate", "Home Service", "Education", "Pets", "Art","Event Planning"," "]
+    let categories = ["Restaurants", "Real Estate", "Home Service", "Education", "Pets", "Galleries", "Event Planning", " "]
     
     var weatherManger = WeatherManger()
     var yelpManger = YelpManger()
@@ -259,6 +259,7 @@ extension ViewController: WeatherDelegate {
         DispatchQueue.main.async {
             self.tempertureLabel.text = "\(weather.temperatureString)°C"
             self.cityLabel.text = weather.cityName
+            self.weatherConditionImage.image = UIImage(named: weather.conditionName)
         }
     }
     
@@ -346,7 +347,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableCell, for: indexPath) as! mainTableViewCell
         let item = businesses[indexPath.row]
         cell.businessNameLabel.text = item.name
-        cell.updateImage(imageURL: item.image_url)
+        cell.update(displaying: cell.businessImage.urlToImage(imageURL: item.image_url))
         cell.businessCategoryLabel.text = "\(item.coordinates.latitude)"
         return cell
     }
@@ -356,7 +357,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let dVC = storyboard.instantiateViewController(identifier: "BusinessDetailVC") as! BusinessDetailViewController
         let item = businesses[indexPath.row]
-        dVC.businessImage
+        dVC.businessImage.urlToImage(imageURL: item.image_url)
+        dVC.businessNameLabel.text = item.name
+        dVC.updateAddress(address1: item.location.address1, city: item.location.city, state: item.location.state, zipCode: item.location.zip_code)
+        dVC.businessDistanceLabel.text = "\(item.distance)"
+        dVC.businessURL = item.url
         
         self.navigationController?.pushViewController(dVC, animated: true)
     }
@@ -392,6 +397,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         } else {
             let dVC = storyboard.instantiateViewController(identifier: "CategoryBusinessVC") as! BusinessesTableViewController
             dVC.title = categories[indexPath.row]
+            
             self.navigationController?.pushViewController(dVC, animated: true)
         }
     }

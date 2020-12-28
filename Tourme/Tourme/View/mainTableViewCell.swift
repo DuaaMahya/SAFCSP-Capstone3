@@ -11,11 +11,16 @@ class mainTableViewCell: UITableViewCell {
     
     let businessImage: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 84, height: 66))
-        image.image = #imageLiteral(resourceName: "a42g7clq33q51")
         image.contentMode = .scaleAspectFill
         image.layer.masksToBounds = true
         image.layer.cornerRadius = 9
         return image
+    }()
+    
+    let imagesSpinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.color = .black
+        return spinner
     }()
     
     let weatherImage: UIImageView = {
@@ -131,6 +136,7 @@ class mainTableViewCell: UITableViewCell {
         return view
     }()
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -138,9 +144,13 @@ class mainTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        
 
         addSubview(businessImage)
         businessImage.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, paddingTop: 15, paddingLeft: 20, paddingBottom: 15, width: 84, height: 66)
+        
+        addSubview(imagesSpinner)
+        imagesSpinner.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, paddingTop: 15, paddingLeft: 20, paddingBottom: 15, width: 84, height: 66)
         
         addSubview(backgroundColorView)
         backgroundColorView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 18, paddingLeft: 20, paddingBottom: 18, paddingRight: 20)
@@ -155,6 +165,16 @@ class mainTableViewCell: UITableViewCell {
                             width: 30, height: 30)
         
         
+    }
+    
+    func update(displaying image: UIImage?) {
+        if let imageToDisplay = image {
+            imagesSpinner.stopAnimating()
+            businessImage.image = imageToDisplay
+        } else {
+            imagesSpinner.startAnimating()
+            businessImage.image = nil
+        }
     }
 
     func businessStar(numberOfStars: Int) {

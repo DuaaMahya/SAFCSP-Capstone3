@@ -14,7 +14,8 @@ class CategoryBusinessCollectionViewController: UIViewController {
     var collectionView: UICollectionView?
     
     let images: [UIImage] = [#imageLiteral(resourceName: "ResturantIcon"), #imageLiteral(resourceName: "RealEstateIcon"), #imageLiteral(resourceName: "HomeServiceIcon"), #imageLiteral(resourceName: "EducationIcon"), #imageLiteral(resourceName: "PetsIcon"), #imageLiteral(resourceName: "ArtIcon"), #imageLiteral(resourceName: "EventPlaningIcon"), #imageLiteral(resourceName: "ReligiousOrgnizationIcon"), #imageLiteral(resourceName: "LocalFlavorIcon"), #imageLiteral(resourceName: "MassMediaIcon"), #imageLiteral(resourceName: "Hotels&TravelIcon"), #imageLiteral(resourceName: "Health&MedicalIcon")]
-    let categories = ["Restaurants", "Real Estate", "Home Service", "Education", "Pets", "Art","Event Planning", "Religious Orgnization", "Local Flavor", "Mass Media", "Hotels & Travel" ,"Health & Medical"]
+    let categories = ["Restaurants", "Real Estate", "Home Service", "Education", "Pets", "Galleries","Event Planning", "Churches", "Yelp Events", "Mass Media", "Hotels & Travel" ,"health"]
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

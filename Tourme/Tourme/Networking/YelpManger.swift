@@ -32,13 +32,17 @@ class YelpManger {
     var delegate: YelpDelegate?
     
     
-    func fetchYelp(lat: Double? = nil, long: Double? = nil, city: String? = nil,
+    func fetchYelp(lat: Double? = nil, long: Double? = nil, city: String? = nil, category: String? = nil,
                       completion: @escaping (Result<[Business], Error>) -> Void) {
         
         var urlString = String()
         
         if lat != nil, long != nil {
             urlString = YelpEndPoint.fillLatAndLongURL(lat: lat!, long: long!)
+        }
+        
+        if lat != nil, long != nil, category != nil{
+            urlString = YelpEndPoint.fillLatAndLongURL(lat: lat!, long: long!, categories: category!)
         }
         
         if city != nil {

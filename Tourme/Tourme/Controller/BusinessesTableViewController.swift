@@ -6,17 +6,34 @@
 //
 
 import UIKit
+import CoreLocation
 
 private let reuseIdentifier = "BusinessCell"
 
 class BusinessesTableViewController: UITableViewController {
     
 
+    
+    let locationManger = CLLocationManager()
+    var yelpManger = YelpManger()
+    
+    var businesses = [Business]()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.register(mainTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.separatorColor = .clear
+        
+        yelpManger.delegate = self
+        
+        setupLocationManger()
+    }
+    
+    func setupLocationManger() {
+        locationManger.delegate = self
+        locationManger.requestWhenInUseAuthorization()
+        locationManger.requestLocation()
     }
 
     // MARK: - Table view data source
@@ -26,12 +43,15 @@ class BusinessesTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        13
+        businesses.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! mainTableViewCell
-        cell.textLabel?.text = "test"
+        let item = businesses[indexPath.row]
+        cell.businessNameLabel.text = item.name
+        cell.update(displaying: cell.businessImage.urlToImage(imageURL: item.image_url))
+        cell.businessCategoryLabel.text = "\(item.coordinates.latitude)"
         return cell
     }
     
@@ -46,4 +66,41 @@ class BusinessesTableViewController: UITableViewController {
     }
     
 
+}
+
+extension BusinessesTableViewController: YelpDelegate {
+    
+    func didUpdateBusiness(_ yelpManger: YelpManger, business: [Business]) {
+        self.businesses = business
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    
+}
+
+extension BusinessesTableViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            let lat = location.coordinate.latitude
+            let long = location.coordinate.longitude
+            
+            var  titleKey = title?.replacingOccurrences(of: " ", with: "").lowercased()
+            titleKey = titleKey?.replacingOccurrences(of: "&", with: "")
+            
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhere:",titleKey!)
+            
+            yelpManger.fetchYelp(lat: lat, long: long, category: "&categories=\(titleKey ?? "")") { (result) in
+                DispatchQueue.main.async {
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\n\n\n\\n\n\n\n\n Result: ",result)
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
 }

@@ -58,6 +58,36 @@ extension Date {
     
 }
 
+extension UIImageView {
+    
+    func urlToImage(imageURL: String) -> UIImage? {
+        guard let photoURL = URL(string: imageURL) else { return nil }
+        
+        URLSession.shared.dataTask(with: photoURL) { (data, responce, error) in
+            
+            if let error = error {
+                print("Data task error. \(error)")
+                return
+            }
+            
+            guard let data = data else {
+                print("Empty Data")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.image = UIImage(data: data)
+                return
+            }
+            
+        }.resume()
+        
+        return self.image
+    }
+    
+    
+}
+
 extension UIView {
 
     func anchor(top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, paddingTop: CGFloat? = 0, paddingLeft: CGFloat? = 0, paddingBottom: CGFloat? = 0, paddingRight: CGFloat? = 0, width: CGFloat? = nil, height: CGFloat? = nil) {
