@@ -95,8 +95,8 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.alignment = .fill
-        stack.distribution = .fillEqually
-        stack.spacing = 7
+        stack.distribution = .fillProportionally
+        stack.spacing = 5
         
         stack.addArrangedSubview(businessNameLabel)
         stack.addArrangedSubview(businessDistanceLabel)
@@ -168,6 +168,9 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
     }()
     
     //MARK: - Overview
+    
+    var businessURL = String()
+    
     let websiteButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "WebIcon"), for: .normal)
@@ -265,6 +268,7 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
     
     
     
+    
     //MARK: - Photos Collection
     
     var collectionView: UICollectionView?
@@ -332,6 +336,10 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
                               paddingRight: 20)
     }
     
+    func updateAddress(address1: String?, city: String?, state: String?, zipCode: String?) {
+        businessAddressLabel.text = "\(address1 ?? ""), \(city ?? ""), \(state ?? "") \(zipCode ?? "")"
+    }
+    
     func setData() {
         let set1 = LineChartDataSet(entries: yValues, label: "Temperture")
         set1.mode = .cubicBezier
@@ -352,6 +360,7 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         print(entry)
     }
+    
    
     
     //MARK: - @objc Selectors
@@ -392,8 +401,10 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
     }
     
     @objc func websiteButtonTapped() {
-        if let url = URL(string: "https://www.hackingwithswift.com/example-code/system/how-to-open-a-url-in-safari") {
+        if let url = URL(string: businessURL) {
             UIApplication.shared.open(url)
+        } else {
+            print("empty url")
         }
     }
     

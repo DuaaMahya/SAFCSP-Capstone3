@@ -11,14 +11,18 @@ protocol WeatherDelegate {
     func didUpdateWeather(_ weatherManger: WeatherManger, weather: WeatherModel)
 }
 
-struct EndPoint {
+struct WeatherEndPoint {
     
     static let weatherBaseURL: String = "https://api.weatherapi.com/v1/current.json?key="
     
     static let apiKey: String = "4a03729482874f59847225041201612"
     
-    static func fillURL(lat: Double, long: Double) -> String {
+    static func fillLatAndLongURL(lat: Double, long: Double) -> String {
         return weatherBaseURL + apiKey + "&q=\(lat),\(long)"
+    }
+    
+    static func fillCityURL(city: String) -> String {
+        return weatherBaseURL + apiKey + "&q=\(city)"
     }
     
 }
@@ -27,8 +31,18 @@ struct WeatherManger {
     
     var delegate: WeatherDelegate?
     
-    func fetchWeather(lat: Double, long: Double, completion: @escaping (Result<WeatherData, Error>) -> Void) {
-        let urlString = EndPoint.fillURL(lat: lat, long: long)
+    func fetchWeather(lat: Double? = nil, long: Double? = nil, city: String? = nil,
+                      completion: @escaping (Result<WeatherData, Error>) -> Void) {
+        
+        var urlString = String()
+        
+        if lat != nil, long != nil {
+            urlString = WeatherEndPoint.fillLatAndLongURL(lat: lat!, long: long!)
+        }
+        
+        if city != nil {
+            urlString = WeatherEndPoint.fillCityURL(city: city!)
+        }
         
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
@@ -52,7 +66,7 @@ struct WeatherManger {
                     print("Empty Response")
                     return
                 }
-                print("Response status code: \(response.statusCode)")
+                print("Weather Response status code: \(response.statusCode)")
                 
                 self.handler(data: data, response: response, error: error) { (result) in
                     completion(result)

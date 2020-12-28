@@ -12,6 +12,9 @@
 		4001889A2594B963005898B3 /* CategoryBusinessCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400188992594B963005898B3 /* CategoryBusinessCollectionViewController.swift */; };
 		400A2B522591598A00BF98DC /* MainPageCategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A2B512591598A00BF98DC /* MainPageCategoriesCollectionViewCell.swift */; };
 		401425752594F93800A8F842 /* BusinessesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401425742594F93800A8F842 /* BusinessesTableViewController.swift */; };
+		401C22EE259A282B0076F85A /* YelpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401C22ED259A282B0076F85A /* YelpData.swift */; };
+		401C22F5259A28350076F85A /* YelpManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401C22F3259A28350076F85A /* YelpManger.swift */; };
+		401C22F6259A28350076F85A /* WeatherManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401C22F4259A28350076F85A /* WeatherManger.swift */; };
 		4040897B2593B33F00A44BA8 /* BusinessDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4040897A2593B33F00A44BA8 /* BusinessDetailViewController.swift */; };
 		409950E4259124140051B502 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409950E3259124140051B502 /* AppDelegate.swift */; };
 		409950E6259124140051B502 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409950E5259124140051B502 /* SceneDelegate.swift */; };
@@ -26,7 +29,6 @@
 		40D9CD852593E8CC00749051 /* BusinessDetailGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D9CD842593E8CC00749051 /* BusinessDetailGalleryCell.swift */; };
 		40ED818A25963DB500A604C1 /* weatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40ED818725963DB500A604C1 /* weatherData.swift */; };
 		40ED818B25963DB500A604C1 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40ED818825963DB500A604C1 /* WeatherModel.swift */; };
-		40ED818C25963DB500A604C1 /* WeatherManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40ED818925963DB500A604C1 /* WeatherManger.swift */; };
 		40ED81A425965CA000A604C1 /* YelpManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40ED81A325965C9F00A604C1 /* YelpManger.swift */; };
 		ED527FDE79FD1147AEE74EC4 /* Pods_TourmeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587C1D87350F5BFC73591714 /* Pods_TourmeTests.framework */; };
 /* End PBXBuildFile section */
@@ -53,6 +55,9 @@
 		400188992594B963005898B3 /* CategoryBusinessCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBusinessCollectionViewController.swift; sourceTree = "<group>"; };
 		400A2B512591598A00BF98DC /* MainPageCategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageCategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		401425742594F93800A8F842 /* BusinessesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessesTableViewController.swift; sourceTree = "<group>"; };
+		401C22ED259A282B0076F85A /* YelpData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpData.swift; sourceTree = "<group>"; };
+		401C22F3259A28350076F85A /* YelpManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpManger.swift; sourceTree = "<group>"; };
+		401C22F4259A28350076F85A /* WeatherManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManger.swift; sourceTree = "<group>"; };
 		4040897A2593B33F00A44BA8 /* BusinessDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDetailViewController.swift; sourceTree = "<group>"; };
 		409950E0259124140051B502 /* Tourme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tourme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		409950E3259124140051B502 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,7 +78,6 @@
 		40D9CD842593E8CC00749051 /* BusinessDetailGalleryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailGalleryCell.swift; sourceTree = "<group>"; };
 		40ED818725963DB500A604C1 /* weatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = weatherData.swift; sourceTree = "<group>"; };
 		40ED818825963DB500A604C1 /* WeatherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
-		40ED818925963DB500A604C1 /* WeatherManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManger.swift; sourceTree = "<group>"; };
 		40ED81A325965C9F00A604C1 /* YelpManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpManger.swift; sourceTree = "<group>"; };
 		489BD9A23260979112ABDACF /* Pods_Tourme.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tourme.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B0119BECD62D8C0F741048D /* Pods_Tourme_TourmeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tourme_TourmeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +117,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		401C22F2259A28350076F85A /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				401C22F3259A28350076F85A /* YelpManger.swift */,
+				401C22F4259A28350076F85A /* WeatherManger.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		409950D7259124130051B502 = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +153,7 @@
 			children = (
 				409950E3259124140051B502 /* AppDelegate.swift */,
 				409950E5259124140051B502 /* SceneDelegate.swift */,
+				401C22F2259A28350076F85A /* Networking */,
 				40995146259140E60051B502 /* Model */,
 				4099514A259140F60051B502 /* View */,
 				4099514B259140FB0051B502 /* Controller */,
@@ -204,7 +218,6 @@
 		40ED819125964D5000A604C1 /* Wearther API+Model */ = {
 			isa = PBXGroup;
 			children = (
-				40ED818925963DB500A604C1 /* WeatherManger.swift */,
 				40ED818725963DB500A604C1 /* weatherData.swift */,
 				40ED818825963DB500A604C1 /* WeatherModel.swift */,
 			);
@@ -214,6 +227,7 @@
 		40ED81A825965CB600A604C1 /* Yelp API+Model */ = {
 			isa = PBXGroup;
 			children = (
+				401C22ED259A282B0076F85A /* YelpData.swift */,
 			);
 			path = "Yelp API+Model";
 			sourceTree = "<group>";
@@ -483,16 +497,18 @@
 				409950E4259124140051B502 /* AppDelegate.swift in Sources */,
 				4099513F259140DE0051B502 /* mainTableViewCell.swift in Sources */,
 				4099513125913FB60051B502 /* Utilities.swift in Sources */,
+				401C22EE259A282B0076F85A /* YelpData.swift in Sources */,
 				40ED818A25963DB500A604C1 /* weatherData.swift in Sources */,
 				400A2B522591598A00BF98DC /* MainPageCategoriesCollectionViewCell.swift in Sources */,
 				401425752594F93800A8F842 /* BusinessesTableViewController.swift in Sources */,
 				40D9CD852593E8CC00749051 /* BusinessDetailGalleryCell.swift in Sources */,
 				4040897B2593B33F00A44BA8 /* BusinessDetailViewController.swift in Sources */,
 				4001889A2594B963005898B3 /* CategoryBusinessCollectionViewController.swift in Sources */,
-				40ED818C25963DB500A604C1 /* WeatherManger.swift in Sources */,
 				40ED818B25963DB500A604C1 /* WeatherModel.swift in Sources */,
 				409950E6259124140051B502 /* SceneDelegate.swift in Sources */,
 				40ED81A425965CA000A604C1 /* YelpManger.swift in Sources */,
+				401C22F6259A28350076F85A /* WeatherManger.swift in Sources */,
+				401C22F5259A28350076F85A /* YelpManger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

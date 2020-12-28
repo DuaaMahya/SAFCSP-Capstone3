@@ -21,6 +21,7 @@ class MainPageCategoriesCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize:8)
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     
@@ -28,7 +29,7 @@ class MainPageCategoriesCollectionViewCell: UICollectionViewCell {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.alignment = .center
-        stack.distribution = .fill
+        stack.distribution = .fillProportionally
         stack.layer.cornerRadius = 9.0
         stack.spacing = 3
         

@@ -13,6 +13,10 @@ private let collectionCell = "categoriesCell"
 
 class ViewController: UIViewController {
     
+    
+    
+    var businesses = [Business]()
+    
     var searchBar = UISearchBar()
     var tableView = UITableView()
     var collectionView: UICollectionView?
@@ -20,9 +24,11 @@ class ViewController: UIViewController {
     let utility = Utilities()
     
     let images: [UIImage] = [#imageLiteral(resourceName: "ResturantIcon"), #imageLiteral(resourceName: "RealEstateIcon"), #imageLiteral(resourceName: "HomeServiceIcon"), #imageLiteral(resourceName: "EducationIcon"), #imageLiteral(resourceName: "PetsIcon"), #imageLiteral(resourceName: "ArtIcon"), #imageLiteral(resourceName: "EventPlaningIcon"), #imageLiteral(resourceName: "more+")]
-    let categories = ["Restaurants", "Real Estate", "Home Service", "Education", "Pets", "Art","Event Planning"," "]
+    let categories = ["Restaurants", "Real Estate", "Home Service", "Education", "Pets", "Galleries", "Event Planning", " "]
     
     var weatherManger = WeatherManger()
+    var yelpManger = YelpManger()
+    
     let locationManger = CLLocationManager()
  
     lazy var header: UIView = {
@@ -164,7 +170,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         weatherManger.delegate = self
-        
+        yelpManger.delegate = self
         
         utility.gradentColors(color1: Colors.lightGreen.cgColor, color2: Colors.green.cgColor, view: containerView, cornerRadius: 9)
         
@@ -245,8 +251,6 @@ class ViewController: UIViewController {
         performSegue(withIdentifier: "weatherVC", sender: nil)
     }
     
-
-
 }
 
 extension ViewController: WeatherDelegate {
@@ -255,8 +259,21 @@ extension ViewController: WeatherDelegate {
         DispatchQueue.main.async {
             self.tempertureLabel.text = "\(weather.temperatureString)°C"
             self.cityLabel.text = weather.cityName
+            self.weatherConditionImage.image = UIImage(named: weather.conditionName)
         }
     }
+    
+}
+
+extension ViewController: YelpDelegate {
+    
+    func didUpdateBusiness(_ yelpManger: YelpManger, business: [Business]) {
+        self.businesses = business
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     
 }
 
@@ -268,6 +285,13 @@ extension ViewController: CLLocationManagerDelegate {
             
             weatherManger.fetchWeather(lat: lat, long: long) { (result) in
                 print(result)
+            }
+            
+            yelpManger.fetchYelp(lat: lat, long: long) { (result) in
+                DispatchQueue.main.async {
+                    print(result)
+                    self.tableView.reloadData()
+                }
             }
         }
     }
@@ -281,12 +305,18 @@ extension ViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         searchBar.endEditing(true)
+        searchBar.resignFirstResponder()
     }
     
-    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        weatherManger.fetchWeather(city: searchBar.text) { (result) in
+            print(result)
+        }
+        
         searchBar.endEditing(true)
+        searchBar.resignFirstResponder()
     }
-    
+   
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -310,12 +340,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        13
+        return businesses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableCell, for: indexPath) as! mainTableViewCell
-        cell.textLabel?.text = "test"
+        let item = businesses[indexPath.row]
+        cell.businessNameLabel.text = item.name
+        cell.update(displaying: cell.businessImage.urlToImage(imageURL: item.image_url))
+        cell.businessCategoryLabel.text = "\(item.coordinates.latitude)"
         return cell
     }
     
@@ -323,13 +356,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let dVC = storyboard.instantiateViewController(identifier: "BusinessDetailVC") as! BusinessDetailViewController
-       
-        
+        let item = businesses[indexPath.row]
+        dVC.businessImage.urlToImage(imageURL: item.image_url)
+        dVC.businessNameLabel.text = item.name
+        dVC.updateAddress(address1: item.location.address1, city: item.location.city, state: item.location.state, zipCode: item.location.zip_code)
+        dVC.businessDistanceLabel.text = "\(item.distance)"
+        dVC.businessURL = item.url
         
         self.navigationController?.pushViewController(dVC, animated: true)
     }
-    
-    
     
     
 }
@@ -352,11 +387,16 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let dVC = storyboard.instantiateViewController(identifier: "CategoriesBusinessVC") as! CategoryBusinessCollectionViewController
        
-        
-        
-        self.navigationController?.pushViewController(dVC, animated: true)
+        if indexPath.row == images.count - 1 {
+            let cVC = storyboard.instantiateViewController(identifier: "CategoriesBusinessVC") as! CategoryBusinessCollectionViewController
+            
+            self.navigationController?.pushViewController(cVC, animated: true)
+        } else {
+            let dVC = storyboard.instantiateViewController(identifier: "CategoryBusinessVC") as! BusinessesTableViewController
+            dVC.title = categories[indexPath.row]
+            self.navigationController?.pushViewController(dVC, animated: true)
+        }
     }
     
 }
