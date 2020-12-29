@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import Network
 import RealmSwift
 
 private let tableCell = "businessesCell"
@@ -32,7 +33,7 @@ class ViewController: UIViewController {
     
     let locationManger = CLLocationManager()
     
-    let realm = try! Realm()
+    let monitor = NWPathMonitor()
  
     lazy var header: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.width + 40))
@@ -182,7 +183,6 @@ class ViewController: UIViewController {
         setupCollectionView()
         setupLocationManger()
         
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
     
     
@@ -249,18 +249,9 @@ class ViewController: UIViewController {
         locationManger.requestLocation()
     }
     
-    func realmDataSaving(business: Business) -> Bool{
+    func realmData(){
         
-        do {
-            try self.realm.write {
-                realm.create(YelpData.self, value: businesses, update: .modified)
-            }
-        } catch {
-            print(error)
-            return false
-        }
         
-        return true
     }
     
     //MARK: - @objc Selectors
@@ -285,11 +276,28 @@ extension ViewController: WeatherDelegate {
 
 extension ViewController: YelpDelegate {
     
-    func didUpdateBusiness(_ yelpManger: YelpManger, business: [Business]) {
-        self.businesses = business
+    func didUpdateBusiness(_ yelpManger: YelpManger, business: YelpData) {
+        self.businesses = Array(business.businesses)
+        
         DispatchQueue.main.async {
+            
+            self.monitor.pathUpdateHandler = { path in
+                if path.status == .satisfied {
+                    for i in self.businesses {
+                        let bool = RealmManager().saveBusiness(i)
+                        print(bool)
+                        print("Connected")
+                    }
+                } else {
+                    self.businesses = Array(RealmManager().getAllBusinesses()!)
+                    print("Disconnected")
+                }
+                print(path.isExpensive)
+            }
             self.tableView.reloadData()
         }
+        let queue = DispatchQueue(label: "Monitor")
+        monitor.start(queue: queue)
     }
     
     
@@ -378,13 +386,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let item = businesses[indexPath.row]
         dVC.businessImage.urlToImage(imageURL: item.image_url)
         dVC.businessNameLabel.text = item.name
-        dVC.updateAddress(address1: item.location.address1, city: item.location.city, state: item.location.state, zipCode: item.location.zip_code)
+        dVC.updateAddress(address1: item.location!.address1, city: item.location!.city, state: item.location!.state, zipCode: item.location!.zip_code)
         dVC.businessDistanceLabel.text = utility.distanceCalculator(item.distance)
         dVC.businessURL = item.url
         dVC.isClosed = item.is_closed
         dVC.businessRatingLabel.text = utility.businessStar(numberOfStars: Int(item.rating))
-        dVC.businessLat = item.coordinates.latitude!
-        dVC.businessLong = item.coordinates.longitude!
+        dVC.businessLat = item.coordinates!.latitude
+        dVC.businessLong = item.coordinates!.longitude
         
         self.navigationController?.pushViewController(dVC, animated: true)
     }
