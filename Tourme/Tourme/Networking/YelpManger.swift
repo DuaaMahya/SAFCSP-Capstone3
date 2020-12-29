@@ -8,7 +8,7 @@
 import Foundation
 
 protocol YelpDelegate {
-    func didUpdateBusiness(_ yelpManger: YelpManger, business: [Business])
+    func didUpdateBusiness(_ yelpManger: YelpManger, business: YelpData)
 }
 
 struct YelpEndPoint {
@@ -33,7 +33,7 @@ class YelpManger {
     
     
     func fetchYelp(lat: Double? = nil, long: Double? = nil, city: String? = nil, category: String? = nil,
-                      completion: @escaping (Result<[Business], Error>) -> Void) {
+                      completion: @escaping (Result<YelpData, Error>) -> Void) {
         
         var urlString = String()
         
@@ -92,11 +92,11 @@ class YelpManger {
     }
     
     
-    func parseJSON(data: Data) -> [Business]? {
+    func parseJSON(data: Data) -> YelpData? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(YelpData.self, from: data)
-            return decodedData.businesses
+            return decodedData
             
         } catch {
             print(error)
@@ -105,7 +105,7 @@ class YelpManger {
         
     }
     
-    func handler(data: Data?, response: URLResponse?, error: Swift.Error?,completion: @escaping (Result<[Business], Error>) -> Void) {
+    func handler(data: Data?, response: URLResponse?, error: Swift.Error?,completion: @escaping (Result<YelpData, Error>) -> Void) {
         guard let data = data, let httpResponse = response as? HTTPURLResponse else { return }
         
         print("Received \(data.count) bytes with status code \(httpResponse.statusCode).")
@@ -117,7 +117,7 @@ class YelpManger {
                 let yelpResponse = try decoder.decode(YelpData.self, from: data)
                 
                 DispatchQueue.main.async {
-                    completion(.success(yelpResponse.businesses))
+                    completion(.success(yelpResponse))
                     
                 }
                 

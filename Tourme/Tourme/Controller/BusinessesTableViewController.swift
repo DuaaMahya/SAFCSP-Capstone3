@@ -7,6 +7,8 @@
 
 import UIKit
 import CoreLocation
+import Network
+import RealmSwift
 
 private let reuseIdentifier = "BusinessCell"
 
@@ -19,6 +21,8 @@ class BusinessesTableViewController: UITableViewController {
     
     var businesses = [Business]()
     var utility = Utilities()
+    
+    let monitor = NWPathMonitor()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +33,9 @@ class BusinessesTableViewController: UITableViewController {
         yelpManger.delegate = self
         
         setupLocationManger()
+        
+        let queue = DispatchQueue(label: "Monitor")
+        monitor.start(queue: queue)
     }
     
     func setupLocationManger() {
@@ -66,7 +73,7 @@ class BusinessesTableViewController: UITableViewController {
         let item = businesses[indexPath.row]
         dVC.businessImage.urlToImage(imageURL: item.image_url)
         dVC.businessNameLabel.text = item.name
-        dVC.updateAddress(address1: item.location.address1, city: item.location.city, state: item.location.state, zipCode: item.location.zip_code)
+        dVC.updateAddress(address1: item.location!.address1, city: item.location!.city, state: item.location!.state, zipCode: item.location!.zip_code)
         dVC.businessDistanceLabel.text = utility.distanceCalculator(item.distance)
         dVC.businessURL = item.url
         dVC.isClosed = item.is_closed
@@ -81,10 +88,25 @@ class BusinessesTableViewController: UITableViewController {
 
 extension BusinessesTableViewController: YelpDelegate {
     
-    func didUpdateBusiness(_ yelpManger: YelpManger, business: [Business]) {
-        self.businesses = business
+    func didUpdateBusiness(_ yelpManger: YelpManger, business: YelpData) {
+        self.businesses = Array(business.businesses)
         DispatchQueue.main.async {
+            self.monitor.pathUpdateHandler = { path in
+                if path.status == .satisfied {
+                    for i in self.businesses {
+                        let bool = RealmManager().saveBusiness(i)
+                        print(bool)
+                        print("Connected")
+                    }
+                } else {
+                    let bool = RealmManager().getAllBusinesses()
+                    print(bool ?? false)
+                    print("Disconnected")
+                }
+                print(path.isExpensive)
+            }
             self.tableView.reloadData()
+            
         }
     }
     
