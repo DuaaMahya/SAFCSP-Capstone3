@@ -1,9 +1,8 @@
 //
-//  Utilities.swift
-//  customauth
+//  BusinessesTableViewController.swift
+//  Tourme
 //
-//  Created by Christopher Ching on 2019-05-09.
-//  Copyright © 2019 Christopher Ching. All rights reserved.
+//  Created by Dua Almahyani on 24/12/2020.
 //
 
 import Foundation
@@ -39,6 +38,40 @@ class Utilities {
         view.addSubview(blurEffectView)
     }
     
+    func distanceCalculator(_ meter: Double) -> String {
+        var distance = meter
+        if distance >= 1000 {
+            distance /= 1000
+            return String(format: "%.1f", distance) + "km"
+        }
+        else {
+            return String(format: "%.1f", distance) + "m"
+        }
+    }
+    
+    func businessStar(numberOfStars: Int) -> String {
+        
+        var starRating = String()
+        if numberOfStars > 0 {
+            for _ in 1...numberOfStars {
+                starRating += "★"
+            }
+            
+            if numberOfStars < 5 {
+                let unfilledStars = 5 - numberOfStars
+                for _ in 1...unfilledStars {
+                    starRating += "☆"
+                }
+            }
+        } else {
+            for _ in 1...5 {
+                starRating += "☆"
+            }
+        }
+        
+        return starRating
+    }
+      
 }
 
 extension Date {
@@ -55,6 +88,37 @@ extension Date {
         dateFormatter.dateFormat = "dd/MM/yyyy"
         return dateFormatter.string(from: self).capitalized
     }
+    
+}
+
+
+extension UIImageView {
+    
+    func urlToImage(imageURL: String) -> UIImage? {
+        guard let photoURL = URL(string: imageURL) else { return nil }
+        
+        URLSession.shared.dataTask(with: photoURL) { (data, responce, error) in
+            
+            if let error = error {
+                print("Data task error. \(error)")
+                return
+            }
+            
+            guard let data = data else {
+                print("Empty Data")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.image = UIImage(data: data)
+                return
+            }
+            
+        }.resume()
+        
+        return self.image
+    }
+    
     
 }
 
