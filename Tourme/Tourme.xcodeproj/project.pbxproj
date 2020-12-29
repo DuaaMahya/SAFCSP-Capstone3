@@ -29,7 +29,6 @@
 		40D9CD852593E8CC00749051 /* BusinessDetailGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D9CD842593E8CC00749051 /* BusinessDetailGalleryCell.swift */; };
 		40ED818A25963DB500A604C1 /* weatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40ED818725963DB500A604C1 /* weatherData.swift */; };
 		40ED818B25963DB500A604C1 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40ED818825963DB500A604C1 /* WeatherModel.swift */; };
-		40ED81A425965CA000A604C1 /* YelpManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40ED81A325965C9F00A604C1 /* YelpManger.swift */; };
 		ED527FDE79FD1147AEE74EC4 /* Pods_TourmeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587C1D87350F5BFC73591714 /* Pods_TourmeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,7 +77,6 @@
 		40D9CD842593E8CC00749051 /* BusinessDetailGalleryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailGalleryCell.swift; sourceTree = "<group>"; };
 		40ED818725963DB500A604C1 /* weatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = weatherData.swift; sourceTree = "<group>"; };
 		40ED818825963DB500A604C1 /* WeatherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
-		40ED81A325965C9F00A604C1 /* YelpManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpManger.swift; sourceTree = "<group>"; };
 		489BD9A23260979112ABDACF /* Pods_Tourme.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tourme.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B0119BECD62D8C0F741048D /* Pods_Tourme_TourmeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tourme_TourmeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D3C40770ED0612EE96ADB41 /* Pods-Tourme-TourmeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tourme-TourmeUITests.release.xcconfig"; path = "Target Support Files/Pods-Tourme-TourmeUITests/Pods-Tourme-TourmeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 			children = (
 				40ED81A825965CB600A604C1 /* Yelp API+Model */,
 				40ED819125964D5000A604C1 /* Wearther API+Model */,
-				40ED81A325965C9F00A604C1 /* YelpManger.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -506,7 +503,6 @@
 				4001889A2594B963005898B3 /* CategoryBusinessCollectionViewController.swift in Sources */,
 				40ED818B25963DB500A604C1 /* WeatherModel.swift in Sources */,
 				409950E6259124140051B502 /* SceneDelegate.swift in Sources */,
-				40ED81A425965CA000A604C1 /* YelpManger.swift in Sources */,
 				401C22F6259A28350076F85A /* WeatherManger.swift in Sources */,
 				401C22F5259A28350076F85A /* YelpManger.swift in Sources */,
 			);

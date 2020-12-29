@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import RealmSwift
 
 private let tableCell = "businessesCell"
 private let collectionCell = "categoriesCell"
@@ -30,6 +31,8 @@ class ViewController: UIViewController {
     var yelpManger = YelpManger()
     
     let locationManger = CLLocationManager()
+    
+    let realm = try! Realm()
  
     lazy var header: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.width + 40))
@@ -178,8 +181,9 @@ class ViewController: UIViewController {
         setupTableView()
         setupCollectionView()
         setupLocationManger()
+        
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
-    
     
     
     //MARK: - Functions
@@ -243,6 +247,20 @@ class ViewController: UIViewController {
         locationManger.delegate = self
         locationManger.requestWhenInUseAuthorization()
         locationManger.requestLocation()
+    }
+    
+    func realmDataSaving(business: Business) -> Bool{
+        
+        do {
+            try self.realm.write {
+                realm.create(YelpData.self, value: businesses, update: .modified)
+            }
+        } catch {
+            print(error)
+            return false
+        }
+        
+        return true
     }
     
     //MARK: - @objc Selectors
@@ -348,7 +366,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let item = businesses[indexPath.row]
         cell.businessNameLabel.text = item.name
         cell.update(displaying: cell.businessImage.urlToImage(imageURL: item.image_url))
-        cell.businessCategoryLabel.text = "\(item.coordinates.latitude)"
+        cell.businessRatingLabel.text = utility.businessStar(numberOfStars: Int(item.rating))
+        cell.isClosed = item.is_closed
         return cell
     }
     
@@ -360,12 +379,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         dVC.businessImage.urlToImage(imageURL: item.image_url)
         dVC.businessNameLabel.text = item.name
         dVC.updateAddress(address1: item.location.address1, city: item.location.city, state: item.location.state, zipCode: item.location.zip_code)
-        dVC.businessDistanceLabel.text = "\(item.distance)"
+        dVC.businessDistanceLabel.text = utility.distanceCalculator(item.distance)
         dVC.businessURL = item.url
+        dVC.isClosed = item.is_closed
+        dVC.businessRatingLabel.text = utility.businessStar(numberOfStars: Int(item.rating))
+        dVC.businessLat = item.coordinates.latitude!
+        dVC.businessLong = item.coordinates.longitude!
         
         self.navigationController?.pushViewController(dVC, animated: true)
     }
-    
     
 }
 
