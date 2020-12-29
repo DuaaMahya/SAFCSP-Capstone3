@@ -7,6 +7,7 @@ target 'Tourme' do
 
   # Pods for Tourme
 pod 'Charts'
+pod 'RealmSwift'
 
   target 'TourmeTests' do
     inherit! :search_paths
