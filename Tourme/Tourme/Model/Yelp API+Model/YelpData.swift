@@ -6,35 +6,35 @@
 //
 
 import Foundation
+import RealmSwift
 
-
-struct YelpData: Codable {
-    let businesses: [Business]
+class YelpData: Object, Codable {
+    @objc dynamic var businesses: [Business]
 }
 
-struct Business: Codable {
-    let name: String
-    let image_url: String
-    let rating: Float
-    let phone: String
-    let id: String
-    let is_closed: Bool
-    let distance: Double
-    let url: String
-    let coordinates: Coordinate
-    let location: Location
+@objcMembers class Business: Object, Codable {
+    dynamic var name: String = ""
+    dynamic var image_url: String = ""
+    dynamic var rating: Float = 0.0
+    dynamic var phone: String = ""
+    dynamic var id: String = ""
+    dynamic var is_closed: Bool = false
+    dynamic var distance: Double = 0.0
+    dynamic var url: String = ""
+    dynamic var coordinates: Coordinate
+    dynamic var location: Location
 }
 
-struct Coordinate: Codable {
-    let latitude: Double?
-    let longitude: Double?
+@objcMembers class Coordinate: Object, Codable {
+    dynamic var latitude: Double?
+    dynamic var longitude: Double?
 }
 
-struct Location: Codable {
-    let city: String
-    let address1: String?
-    let state: String
-    let zip_code: String
+@objcMembers class Location: Object, Codable {
+    dynamic var city: String
+    dynamic var address1: String?
+    dynamic var state: String
+    dynamic var zip_code: String
 }
 
 struct Categories: Codable {

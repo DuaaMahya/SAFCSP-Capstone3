@@ -91,41 +91,6 @@ class YelpManger {
         }
     }
     
-//    func parseJSON(data: Data) -> YelpModel? {
-//        //let decoder = JSONDecoder()
-//        var businessList = [YelpModel]()
-//        do {
-//            let json = try JSONSerialization.jsonObject(with: data, options: [])
-//
-//            guard let resp = json as? NSDictionary else { return nil }
-//
-//            guard let businesses = resp.value(forKey: "businesses") as? [NSDictionary] else { return nil }
-//
-//            //let businesses = try decoder.decode(YelpData.self, from: data)
-//
-//            for business in businesses {
-//                var yelp = YelpModel()
-//                yelp.businessName = business.value(forKey: "name") as? String
-//                yelp.businessID = business.value(forKey: "id") as? String
-//                yelp.businessPhoto = business.value(forKey: "image_url") as? String
-//                yelp.businessURL = business.value(forKey: "url") as? String
-//                yelp.businessRating = business.value(forKey: "rating") as? Float
-//                yelp.businessDistance = business.value(forKey: "distance") as? Double
-//                yelp.businessAddress1 = business.value(forKey: "location.address1") as? String
-//                yelp.businessCity = business.value(forKey: "location.city") as? String
-//                yelp.businessState = business.value(forKey: "state") as? String
-//                yelp.businessZip = business.value(forKey: "zip_code") as? String
-//
-//                businessList.append(yelp)
-//            }
-//
-//
-//        } catch {
-//            print(error)
-//            return nil
-//        }
-//
-//    }
     
     func parseJSON(data: Data) -> [Business]? {
         let decoder = JSONDecoder()
