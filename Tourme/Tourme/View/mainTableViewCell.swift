@@ -41,10 +41,10 @@ class mainTableViewCell: UITableViewCell {
         return label
     }()
     
-    let businessCategoryLabel: UILabel = {
+    let businessRatingLabel: UILabel = {
         let label = UILabel()
         label.text = "Local Flavor"
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 7)
         return label
     }()
 
@@ -56,42 +56,17 @@ class mainTableViewCell: UITableViewCell {
         return label
     }()
     
-    let starImage: UIImageView = {
-        let image = UIImageView()
-        image.image = #imageLiteral(resourceName: "smallStar")
-        image.contentMode = .scaleAspectFill
-        image.clipsToBounds = true
-        image.layer.borderColor = UIColor.white.cgColor
-        return image
-    }()
-    
-    let unfilledStarImage: UIImageView = {
-        let image = UIImageView()
-        image.image = #imageLiteral(resourceName: "UnfilledStar")
-        image.contentMode = .scaleAspectFill
-        image.clipsToBounds = true
-        image.layer.borderColor = UIColor.white.cgColor
-        return image
-    }()
-    
-    var numberOfStars = 5
 
-    lazy var starsStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.spacing = 1
-        
-        starImage.anchor(width: 5, height: 5)
-        stack.addArrangedSubview(starImage)
-        stack.addArrangedSubview(starImage)
-        stack.addArrangedSubview(starImage)
-        stack.addArrangedSubview(starImage)
-        stack.addArrangedSubview(starImage)
-        
-        return stack
-    }()
+    var isClosed: Bool = false {
+        didSet {
+            if isClosed {
+                businessCurrntStateLabel.text = "Out Of Buisness"
+                businessCurrntStateLabel.textColor =  UIColor.red
+            } else {
+                businessCurrntStateLabel.text = "In Buisness"
+            }
+        }
+    }
     
     lazy var statusStackView: UIStackView = {
         let stack = UIStackView()
@@ -101,7 +76,6 @@ class mainTableViewCell: UITableViewCell {
         stack.spacing = 0
         
         stack.addArrangedSubview(businessCurrntStateLabel)
-        stack.addArrangedSubview(starsStackView)
         
         return stack
     }()
@@ -114,7 +88,7 @@ class mainTableViewCell: UITableViewCell {
         
         
         stack.addArrangedSubview(businessNameLabel)
-        stack.addArrangedSubview(businessCategoryLabel)
+        stack.addArrangedSubview(businessRatingLabel)
         stack.addArrangedSubview(statusStackView)
         
         
@@ -175,65 +149,6 @@ class mainTableViewCell: UITableViewCell {
             imagesSpinner.startAnimating()
             businessImage.image = nil
         }
-    }
-
-    func businessStar(numberOfStars: Int) {
-        
-        for _ in 1...numberOfStars {
-            let image = UIImageView()
-            image.image = #imageLiteral(resourceName: "Star")
-            image.contentMode = .scaleAspectFill
-            image.clipsToBounds = true
-            image.layer.borderColor = UIColor.white.cgColor
-            starsStackView.addArrangedSubview(image)
-        }
-        
-//       if numberOfStars < 5 {
-//            let unfilledStars = 5 - numberOfStars
-//            for _ in 1...unfilledStars {
-//                let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
-//                 image.image = #imageLiteral(resourceName: "UnfilledStar")
-//                image.contentMode = .scaleAspectFill
-//                image.clipsToBounds = true
-//                image.layer.borderColor = UIColor.white.cgColor
-//                starsStackView.addArrangedSubview(image)
-//            }
-//        }
-    }
-    
-    func updateImage(imageURL: String) {
-        
-        guard let photoURL = URL(string: imageURL) else {
-            self.businessImage.image = UIImage(named: "gray")
-            return
-        }
-        
-        // clear photo first
-        self.businessImage.image = nil
-        
-        fetchImageData(from: photoURL)
-    }
-    
-    private func fetchImageData(from url: URL) {
-        URLSession.shared.dataTask(with: url) { (data, responce, error) in
-            
-            if let error = error {
-                print("Data task error. \(error)")
-                return
-            }
-            
-            guard let data = data else {
-                print("Empty Data")
-                return
-            }
-            
-            DispatchQueue.main.async {
-                if let image = UIImage(data: data) {
-                    self.businessImage.image = image
-                }
-            }
-            
-        }.resume()
     }
     
 }

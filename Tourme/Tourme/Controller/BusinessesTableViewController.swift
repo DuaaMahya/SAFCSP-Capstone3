@@ -18,6 +18,7 @@ class BusinessesTableViewController: UITableViewController {
     var yelpManger = YelpManger()
     
     var businesses = [Business]()
+    var utility = Utilities()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +52,9 @@ class BusinessesTableViewController: UITableViewController {
         let item = businesses[indexPath.row]
         cell.businessNameLabel.text = item.name
         cell.update(displaying: cell.businessImage.urlToImage(imageURL: item.image_url))
-        cell.businessCategoryLabel.text = "\(item.coordinates.latitude)"
+        cell.businessRatingLabel.text = utility.businessStar(numberOfStars: Int(item.rating))
+        cell.isClosed = item.is_closed
+        
         return cell
     }
     
@@ -60,6 +63,14 @@ class BusinessesTableViewController: UITableViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let dVC = storyboard.instantiateViewController(identifier: "BusinessDetailVC") as! BusinessDetailViewController
        
+        let item = businesses[indexPath.row]
+        dVC.businessImage.urlToImage(imageURL: item.image_url)
+        dVC.businessNameLabel.text = item.name
+        dVC.updateAddress(address1: item.location.address1, city: item.location.city, state: item.location.state, zipCode: item.location.zip_code)
+        dVC.businessDistanceLabel.text = utility.distanceCalculator(item.distance)
+        dVC.businessURL = item.url
+        dVC.isClosed = item.is_closed
+        dVC.businessRatingLabel.text = utility.businessStar(numberOfStars: Int(item.rating))
         
         
         self.navigationController?.pushViewController(dVC, animated: true)

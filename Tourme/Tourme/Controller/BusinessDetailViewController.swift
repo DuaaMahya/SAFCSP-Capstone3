@@ -8,9 +8,12 @@
 import UIKit
 import Charts
 
-class BusinessDetailViewController: UIViewController, ChartViewDelegate {
+class BusinessDetailViewController: UIViewController, ChartViewDelegate, WeatherDelegate {
     
     let utility = Utilities()
+    var weatherManger = WeatherManger()
+    var businessLat = Double()
+    var businessLong = Double()
     
     let businessImage: UIImageView = {
         let image = UIImageView()
@@ -55,7 +58,7 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
     
     let businessRatingLabel: UILabel = {
         let label = UILabel()
-        label.text = "&&&&&"
+        label.text = "★"
         label.font = UIFont.systemFont(ofSize: 10)
         return label
     }()
@@ -167,6 +170,17 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
         return stack
     }()
     
+    var isClosed: Bool = false {
+        didSet {
+            if isClosed {
+                businessCurrntStateLabel.text = "Out Of Buisness"
+                businessCurrntStateLabel.textColor =  UIColor.red
+            } else {
+                businessCurrntStateLabel.text = "In Buisness"
+            }
+        }
+    }
+    
     //MARK: - Overview
     
     var businessURL = String()
@@ -267,8 +281,6 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
     ]
     
     
-    
-    
     //MARK: - Photos Collection
     
     var collectionView: UICollectionView?
@@ -292,6 +304,10 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
         view.addSubview(buttonsStackView)
         buttonsStackView.anchor(top: infoStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 30, paddingLeft: 20, paddingRight: 20)
         
+        weatherManger.delegate = self
+        weatherManger.fetchWeather(lat: businessLat, long: businessLong) { (result) in
+            print(result)
+        }
         
     }
     
@@ -357,9 +373,20 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate {
         lineChartView.data = data
     }
     
+    func didUpdateWeather(_ weatherManger: WeatherManger, weather: WeatherModel) {
+        DispatchQueue.main.async {
+            self.businessCurrentTempLabel.text = "\(weather.temperatureString)°C"
+        }
+    }
+    
+    func updateChart() {
+    }
+    
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         print(entry)
     }
+    
+    
     
    
     
