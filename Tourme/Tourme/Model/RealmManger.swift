@@ -67,26 +67,4 @@ extension RealmManager {
 
     }
 
-    func deleteBusiness(_ business: Business) -> Bool {
-
-        guard let realm = try? Realm() else { return false }
-
-        do{
-            try realm.write {
-                realm.delete(business)
-            }
-            return true
-        }catch{
-            return false
-        }
-
-    }
-
-    func deletePersonWith(name: String) -> Bool {
-        if let business = getAllBusinesses()?.filter("name = '%@'", name).first {
-            return deleteBusiness(business)
-        }
-        return false
-    }
-
 }

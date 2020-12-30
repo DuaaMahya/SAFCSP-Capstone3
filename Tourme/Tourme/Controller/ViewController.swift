@@ -7,7 +7,6 @@
 
 import UIKit
 import CoreLocation
-import Network
 import RealmSwift
 
 private let tableCell = "businessesCell"
@@ -33,7 +32,6 @@ class ViewController: UIViewController {
     
     let locationManger = CLLocationManager()
     
-    let monitor = NWPathMonitor()
  
     lazy var header: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.width + 40))
@@ -183,6 +181,13 @@ class ViewController: UIViewController {
         setupCollectionView()
         setupLocationManger()
         
+        print(Realm.Configuration.defaultConfiguration.fileURL)
+        
+       if  Reachability.isConnectedToNetwork() == false {
+            self.businesses = Array(RealmManager().getAllBusinesses()!)
+            print("Disconnected")
+            print(self.businesses)
+        }
     }
     
     
@@ -277,31 +282,18 @@ extension ViewController: WeatherDelegate {
 extension ViewController: YelpDelegate {
     
     func didUpdateBusiness(_ yelpManger: YelpManger, business: YelpData) {
-        self.businesses = Array(business.businesses)
         
         DispatchQueue.main.async {
-            
-            self.monitor.pathUpdateHandler = { path in
-                if path.status == .satisfied {
-                    for i in self.businesses {
-                        let bool = RealmManager().saveBusiness(i)
-                        print(bool)
-                        print("Connected")
-                    }
-                } else {
-                    self.businesses = Array(RealmManager().getAllBusinesses()!)
-                    print("Disconnected")
-                }
-                print(path.isExpensive)
+            self.businesses = Array(business.businesses)
+            for i in self.businesses {
+                let bool = RealmManager().saveBusiness(i)
             }
+            print("Connected")
             self.tableView.reloadData()
         }
-        let queue = DispatchQueue(label: "Monitor")
-        monitor.start(queue: queue)
     }
-    
-    
 }
+
 
 extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -313,11 +305,15 @@ extension ViewController: CLLocationManagerDelegate {
                 print(result)
             }
             
-            yelpManger.fetchYelp(lat: lat, long: long) { (result) in
-                DispatchQueue.main.async {
-                    print(result)
-                    self.tableView.reloadData()
+            if Reachability.isConnectedToNetwork(){
+                yelpManger.fetchYelp(lat: lat, long: long) { (result) in
+                    DispatchQueue.main.async {
+                        print(result)
+                        self.tableView.reloadData()
+                    }
                 }
+                print("Connected")
+                
             }
         }
     }
