@@ -16,6 +16,8 @@
 		401C22F5259A28350076F85A /* YelpManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401C22F3259A28350076F85A /* YelpManger.swift */; };
 		401C22F6259A28350076F85A /* WeatherManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401C22F4259A28350076F85A /* WeatherManger.swift */; };
 		403ABCDA259C7434005B0C86 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403ABCD9259C7434005B0C86 /* Reachability.swift */; };
+		403ABCEB259CA57C005B0C86 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403ABCEA259CA57C005B0C86 /* Constants.swift */; };
+		403ABCF0259CA6AA005B0C86 /* FakeScheduleURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403ABCEF259CA6AA005B0C86 /* FakeScheduleURLProtocol.swift */; };
 		4040897B2593B33F00A44BA8 /* BusinessDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4040897A2593B33F00A44BA8 /* BusinessDetailViewController.swift */; };
 		4074AB3E259BCC48008EB829 /* RealmManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074AB3D259BCC48008EB829 /* RealmManger.swift */; };
 		409950E4259124140051B502 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409950E3259124140051B502 /* AppDelegate.swift */; };
@@ -60,6 +62,8 @@
 		401C22F3259A28350076F85A /* YelpManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpManger.swift; sourceTree = "<group>"; };
 		401C22F4259A28350076F85A /* WeatherManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManger.swift; sourceTree = "<group>"; };
 		403ABCD9259C7434005B0C86 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		403ABCEA259CA57C005B0C86 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		403ABCEF259CA6AA005B0C86 /* FakeScheduleURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeScheduleURLProtocol.swift; sourceTree = "<group>"; };
 		4040897A2593B33F00A44BA8 /* BusinessDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDetailViewController.swift; sourceTree = "<group>"; };
 		4074AB3D259BCC48008EB829 /* RealmManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManger.swift; sourceTree = "<group>"; };
 		409950E0259124140051B502 /* Tourme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tourme.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,7 +175,9 @@
 		409950F9259124210051B502 /* TourmeTests */ = {
 			isa = PBXGroup;
 			children = (
+				403ABCEA259CA57C005B0C86 /* Constants.swift */,
 				409950FA259124210051B502 /* TourmeTests.swift */,
+				403ABCEF259CA6AA005B0C86 /* FakeScheduleURLProtocol.swift */,
 				409950FC259124210051B502 /* Info.plist */,
 			);
 			path = TourmeTests;
@@ -521,6 +527,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				409950FB259124210051B502 /* TourmeTests.swift in Sources */,
+				403ABCF0259CA6AA005B0C86 /* FakeScheduleURLProtocol.swift in Sources */,
+				403ABCEB259CA57C005B0C86 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
