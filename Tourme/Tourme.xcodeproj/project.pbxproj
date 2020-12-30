@@ -15,6 +15,7 @@
 		401C22EE259A282B0076F85A /* YelpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401C22ED259A282B0076F85A /* YelpData.swift */; };
 		401C22F5259A28350076F85A /* YelpManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401C22F3259A28350076F85A /* YelpManger.swift */; };
 		401C22F6259A28350076F85A /* WeatherManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401C22F4259A28350076F85A /* WeatherManger.swift */; };
+		403ABCDA259C7434005B0C86 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403ABCD9259C7434005B0C86 /* Reachability.swift */; };
 		4040897B2593B33F00A44BA8 /* BusinessDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4040897A2593B33F00A44BA8 /* BusinessDetailViewController.swift */; };
 		4074AB3E259BCC48008EB829 /* RealmManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074AB3D259BCC48008EB829 /* RealmManger.swift */; };
 		409950E4259124140051B502 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409950E3259124140051B502 /* AppDelegate.swift */; };
@@ -58,6 +59,7 @@
 		401C22ED259A282B0076F85A /* YelpData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpData.swift; sourceTree = "<group>"; };
 		401C22F3259A28350076F85A /* YelpManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpManger.swift; sourceTree = "<group>"; };
 		401C22F4259A28350076F85A /* WeatherManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManger.swift; sourceTree = "<group>"; };
+		403ABCD9259C7434005B0C86 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		4040897A2593B33F00A44BA8 /* BusinessDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDetailViewController.swift; sourceTree = "<group>"; };
 		4074AB3D259BCC48008EB829 /* RealmManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManger.swift; sourceTree = "<group>"; };
 		409950E0259124140051B502 /* Tourme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tourme.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +124,7 @@
 			children = (
 				401C22F3259A28350076F85A /* YelpManger.swift */,
 				401C22F4259A28350076F85A /* WeatherManger.swift */,
+				403ABCD9259C7434005B0C86 /* Reachability.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -186,9 +189,9 @@
 		40995146259140E60051B502 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4074AB3D259BCC48008EB829 /* RealmManger.swift */,
 				40ED81A825965CB600A604C1 /* Yelp Model */,
 				40ED819125964D5000A604C1 /* Wearther Model */,
-				4074AB3D259BCC48008EB829 /* RealmManger.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				4099513125913FB60051B502 /* Utilities.swift in Sources */,
 				401C22EE259A282B0076F85A /* YelpData.swift in Sources */,
 				40ED818A25963DB500A604C1 /* weatherData.swift in Sources */,
+				403ABCDA259C7434005B0C86 /* Reachability.swift in Sources */,
 				400A2B522591598A00BF98DC /* MainPageCategoriesCollectionViewCell.swift in Sources */,
 				4074AB3E259BCC48008EB829 /* RealmManger.swift in Sources */,
 				401425752594F93800A8F842 /* BusinessesTableViewController.swift in Sources */,
