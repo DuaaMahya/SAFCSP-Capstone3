@@ -31,6 +31,11 @@ class YelpManger {
     
     var delegate: YelpDelegate?
     
+    var session: URLSession
+    
+    init(configuration: URLSessionConfiguration = .default) {
+        self.session = URLSession(configuration: configuration)
+    }
     
     func fetchYelp(lat: Double? = nil, long: Double? = nil, city: String? = nil, category: String? = nil,
                       completion: @escaping (Result<YelpData, Error>) -> Void) {
@@ -56,7 +61,7 @@ class YelpManger {
             request.httpMethod = "GET"
             
             print("\n \n \n\n\n\n\n\n\n\n\n\n\n\n\n\nrequest: \(request)")
-            let session = URLSession(configuration: .default)
+            //session = URLSession(configuration: .default)
             let task = session.dataTask(with: request) { (data, response, error) in
                 
                 if error != nil {
