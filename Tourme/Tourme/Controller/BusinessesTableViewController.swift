@@ -78,7 +78,9 @@ class BusinessesTableViewController: UITableViewController {
         dVC.businessURL = item.url
         dVC.isClosed = item.is_closed
         dVC.businessRatingLabel.text = utility.businessStar(numberOfStars: Int(item.rating))
-        
+        dVC.businessLat = item.coordinates!.latitude
+        dVC.businessLong = item.coordinates!.longitude
+        dVC.businessPhoneNumber = item.phone
         
         self.navigationController?.pushViewController(dVC, animated: true)
     }

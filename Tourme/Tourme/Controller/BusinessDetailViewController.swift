@@ -74,22 +74,12 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate, Weather
         return button
     }()
     
-    let photosButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Photos", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
-        button.setTitleColor(.darkGray, for: .normal)
-        button.tag = 2
-        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        return button
-    }()
-    
     let aboutButton: UIButton = {
         let button = UIButton()
         button.setTitle("About", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
         button.setTitleColor(.darkGray, for: .normal)
-        button.tag = 3
+        button.tag = 2
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         return button
     }()
@@ -150,7 +140,6 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate, Weather
         stack.distribution = .equalCentering
         
         stack.addArrangedSubview(overviewButton)
-        stack.addArrangedSubview(photosButton)
         stack.addArrangedSubview(aboutButton)
         
         let line = CAShapeLayer()
@@ -184,6 +173,7 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate, Weather
     //MARK: - Overview
     
     var businessURL = String()
+    var businessPhoneNumber = String()
     
     let websiteButton: UIButton = {
         let button = UIButton()
@@ -201,7 +191,7 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate, Weather
     
     let businessCurrentTempLabel: UILabel = {
         let label = UILabel()
-        label.text = "17C"
+        label.text = "tempC"
         label.font = UIFont.systemFont(ofSize: 28)
         label.textColor = UIColor(red: 4/255, green: 168/255, blue: 1/255, alpha: 1)
         return label
@@ -280,14 +270,6 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate, Weather
         
     ]
     
-    
-    //MARK: - Photos Collection
-    
-    var collectionView: UICollectionView?
-    
-    let gallery: [UIImage] = [#imageLiteral(resourceName: "a42g7clq33q51"), #imageLiteral(resourceName: "4a1af8a692f40b7836dc1ea20bb71937"), #imageLiteral(resourceName: "tumblr_ntnseeIUwt1r09wbpo1_540"), #imageLiteral(resourceName: "a42g7clq33q51"), #imageLiteral(resourceName: "4a1af8a692f40b7836dc1ea20bb71937"), #imageLiteral(resourceName: "tumblr_ntnseeIUwt1r09wbpo1_540"), #imageLiteral(resourceName: "a42g7clq33q51"), #imageLiteral(resourceName: "4a1af8a692f40b7836dc1ea20bb71937"), #imageLiteral(resourceName: "tumblr_ntnseeIUwt1r09wbpo1_540"), #imageLiteral(resourceName: "a42g7clq33q51"), #imageLiteral(resourceName: "4a1af8a692f40b7836dc1ea20bb71937"), #imageLiteral(resourceName: "tumblr_ntnseeIUwt1r09wbpo1_540"), #imageLiteral(resourceName: "a42g7clq33q51"), #imageLiteral(resourceName: "4a1af8a692f40b7836dc1ea20bb71937"), #imageLiteral(resourceName: "tumblr_ntnseeIUwt1r09wbpo1_540")]
-    
-    
     //MARK: - Override
 
     override func viewDidLoad() {
@@ -309,48 +291,19 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate, Weather
             print(result)
         }
         
+        weatherManger.fetchForcastWeather(lat: businessLat, long: businessLong) { (result) in
+            print(result)
+        }
     }
-    
     
     //MARK: - Functions
     
     func setupOverviewContent() {
         overviewContentStackView.isHidden = false
-        collectionView?.isHidden = true
-        collectionView?.alpha = 0
         view.addSubview(overviewContentStackView)
         overviewContentStackView.anchor(top: buttonsStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 25, paddingLeft: 20, paddingRight: 20)
-        
-        
-       
     }
     
-    func setupCollectionView() {
-        collectionView?.isHidden = false
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView?.backgroundColor = .clear
-        collectionView?.showsVerticalScrollIndicator = false
-        
-        guard let collectionView = collectionView else {
-            print("collection found nil")
-            return
-        }
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(BusinessDetailGalleryCell.self, forCellWithReuseIdentifier: "GalleryCell")
-        
-        view.addSubview(collectionView)
-        collectionView.anchor(top: buttonsStackView.bottomAnchor,
-                              left: view.leftAnchor,
-                              bottom: view.bottomAnchor,
-                              right: view.rightAnchor,
-                              paddingTop: 20,
-                              paddingLeft: 20,
-                              paddingRight: 20)
-    }
     
     func updateAddress(address1: String?, city: String?, state: String?, zipCode: String?) {
         businessAddressLabel.text = "\(address1 ?? ""), \(city ?? ""), \(state ?? "") \(zipCode ?? "")"
@@ -379,17 +332,12 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate, Weather
         }
     }
     
-    func updateChart() {
-    }
-    
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         print(entry)
     }
     
     
-    
-   
-    
+
     //MARK: - @objc Selectors
     
     @objc func buttonTapped(_ sender: UIButton) {
@@ -397,30 +345,16 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate, Weather
         case 1:
             print("overview")
             overviewButton.setTitleColor(Colors.green, for: .normal)
-            photosButton.setTitleColor(.darkGray, for: .normal)
             aboutButton.setTitleColor(.darkGray, for: .normal)
             
             setupOverviewContent()
-            collectionView?.isHidden = true
             
         case 2:
-            print("photos")
-            overviewButton.setTitleColor(.darkGray, for: .normal)
-            photosButton.setTitleColor(Colors.green, for: .normal)
-            aboutButton.setTitleColor(.darkGray, for: .normal)
-            
-            overviewContentStackView.isHidden = true
-            setupCollectionView()
-            
-            
-        case 3:
             print("about")
             overviewButton.setTitleColor(.darkGray, for: .normal)
-            photosButton.setTitleColor(.darkGray, for: .normal)
             aboutButton.setTitleColor(Colors.green, for: .normal)
             
             overviewContentStackView.isHidden = true
-            collectionView?.isHidden = true
             
         default:
             print("error while choosing")
@@ -437,39 +371,11 @@ class BusinessDetailViewController: UIViewController, ChartViewDelegate, Weather
     
     @objc func callButtonTapped() {
         
+        if let phoneURL = URL(string: "tel://\(businessPhoneNumber)") {
+            UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
+        } else {
+            print("empty url")
+        }
+        print(businessPhoneNumber)
     }
-    
-
-    
-
-}
-
-extension BusinessDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { gallery.count }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GalleryCell", for: indexPath) as! BusinessDetailGalleryCell
-        cell.image = gallery[indexPath.row]
-        return cell
-    }
-    
-    
-}
-
-extension BusinessDetailViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width - 42) / 3
-        return CGSize(width: width, height: width)
-    }
-    
 }

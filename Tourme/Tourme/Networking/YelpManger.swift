@@ -61,7 +61,6 @@ class YelpManger {
             request.httpMethod = "GET"
             
             print("\n \n \n\n\n\n\n\n\n\n\n\n\n\n\n\nrequest: \(request)")
-            //session = URLSession(configuration: .default)
             let task = session.dataTask(with: request) { (data, response, error) in
                 
                 if error != nil {
