@@ -23,16 +23,6 @@ class mainTableViewCell: UITableViewCell {
         return spinner
     }()
     
-    let weatherImage: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(systemName: "cloud")
-        image.tintColor = .white
-        image.layer.shadowColor = UIColor.black.cgColor
-        image.layer.shadowRadius = 7
-        image.layer.shadowOpacity = 0.3
-        image.layer.shadowOffset = CGSize(width: 0, height: 5)
-        return image
-    }()
     
     let businessNameLabel: UILabel = {
         let label = UILabel()
@@ -131,12 +121,6 @@ class mainTableViewCell: UITableViewCell {
         
         addSubview(InfoStackView)
         InfoStackView.anchor(top: topAnchor, left: businessImage.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 25, paddingLeft: 10, paddingBottom: 25, paddingRight: 20)
-        
-        addSubview(weatherImage)
-        weatherImage.centerYAnchor.constraint(equalTo: backgroundColorView.centerYAnchor).isActive = true
-        weatherImage.anchor(right: rightAnchor,
-                            paddingRight: 30,
-                            width: 30, height: 30)
         
         
     }

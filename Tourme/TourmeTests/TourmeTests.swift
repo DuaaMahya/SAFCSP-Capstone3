@@ -71,16 +71,16 @@ class TourmeTests: XCTestCase {
     }
     
     
-    func checkStarRatingFunction() {
+    func testResultFromCheckStarRatingFunction() {
         let testResult = "★★★☆☆"
         let result = utility.businessStar(numberOfStars: 3)
         XCTAssertEqual(testResult, result, "The strings Matches.")
     }
     
-    func checkDistaceFunction() {
-        let testResult = "3km"
+    func testResultFromDistaceFunction() {
+        let testResult = "3.0km"
         let result = utility.distanceCalculator(3000.0)
         XCTAssertEqual(testResult, result, "The Distance Matches.")
     }
-
+    
 }
